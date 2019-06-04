@@ -1,3 +1,5 @@
+import { ersClient } from "../axios/ers-client";
+import { isError } from "util";
 
 export const loginTypes = {
     INVALID_CREDENTIALS : 'LOGIN_INVALID_CREDENTIALS',
@@ -17,14 +19,8 @@ export const login = (username:string, password:string, history:any) => async(di
 
     try{
 
-        const response = await fetch('http://localhost:9050/users/login', {
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify(credentials),
-            headers:{
-                'content-type': 'application/json'
-            }
-        })
+        const response = await ersClient.post('/users/login', credentials)
+
 
         if(response.status === 401){//if user pass is wrong
             //send info to the reducer
@@ -33,7 +29,7 @@ export const login = (username:string, password:string, history:any) => async(di
                 type: loginTypes.INVALID_CREDENTIALS
             })
         } else if( response.status === 200){
-            const user = await response.json()
+            const user = await response.data
             dispatch({
                 payload:{
                     user: user
@@ -41,6 +37,12 @@ export const login = (username:string, password:string, history:any) => async(di
                 type:loginTypes.SUCCESSFUL_LOGIN
             })
             history.push('/users')
+            if(user.role[0].roleId == 1){
+                history.push('/users/admin')
+            }
+            else if(user.role[0].roleId == 2){
+                history.push('/users/finance')
+            }
             
         } else {
             dispatch({

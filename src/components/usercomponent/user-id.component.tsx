@@ -1,33 +1,28 @@
 import React from 'react'
 import { User } from '../../models/user';
 import { ersClient } from '../../axios/ers-client';
-import { connect } from 'react-redux';
-import { IState } from '../../reducers';
 
 interface IUserState{
     // allUserKeys:any
     allUsers:User[]
     errorMessage: string
-    currentUser: User
-    // buttonClick: (id) => void
+    userId: number
 }
 
-export class UserComponent extends React.Component<any, IUserState> {
+export class UserByIdComponent extends React.Component<any, IUserState> {
     constructor(props){
         super(props);
         this.state = {
             // allUserKeys:[],
             allUsers:[],
             errorMessage: '',
-            currentUser: undefined,
-            // buttonClick: undefined
-
+            userId: 0
         }
     }
 
     getAllUsers = async ()=>{
         //event.preventDefault()
-        console.log('getting all users')
+        //console.log('getting all users')
         // const username = this.state.username
         // const password = this.state.password
     
@@ -87,9 +82,6 @@ export class UserComponent extends React.Component<any, IUserState> {
                             <td>{user.email}</td>
                             {/* <td>{user.role[0].roleId}</td> */}
                             <td>{user.role[0].role}</td>
-                            <td><button
-                            disabled = {this.props.currentUser.role[0].roleId != 1}
-                            onClick={() => {this.props.history.push(`/users/${user.userId}`)}}>Edit</button></td>
                         </tr>
                     )
                 })
@@ -103,18 +95,12 @@ export class UserComponent extends React.Component<any, IUserState> {
                 })
                 
             } else {
-                document.getElementById('error-message').innerText = 'You Can\'t login right now'
+                document.getElementById('error-message').innerText = 'something bad happened'
             }        
         } catch(err){
             console.log(err);        
         }
     }
-
-    
-    // buttonClick = (id) => {
-    //     //this.props.incrementClicks(-100)
-    //     this.props.history.push(`/users/${id}`)
-    // }
 
     componentDidMount(){
         this.getAllUsers() 
@@ -144,11 +130,3 @@ export class UserComponent extends React.Component<any, IUserState> {
         )
     }
 }
-
-const mapStateToProps = (state:IState) =>{
-    return {
-        currentUser: state.login.currentUser
-    }
-}
-
-export default connect(mapStateToProps)(UserComponent)
