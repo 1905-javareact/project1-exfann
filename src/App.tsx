@@ -12,6 +12,7 @@ import  UserComponent  from './components/usercomponent/users.component';
 import { Provider } from 'react-redux';
 import { store } from './Store';
 import { HomeComponent } from './components/home.component.tsx/home.component';
+import userIdComponent from './components/usercomponent/user-id.component';
 
 
 const App: React.FC = () => {
@@ -24,7 +25,8 @@ const App: React.FC = () => {
             <Route exact path='/' component={HomeComponent}/>
             <Route path='/home' component={HomeComponent}/>
             <Route path='/login' component={SignInComponent}/>
-            <Route path='/users' component={UserComponent}/>
+            <Route exact path='/users' component={UserComponent}/>
+            <Route path = '/users/' component={userIdComponent}/>
           </Switch>
         </BrowserRouter>
     </div>

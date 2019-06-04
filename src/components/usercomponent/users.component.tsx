@@ -88,8 +88,8 @@ export class UserComponent extends React.Component<any, IUserState> {
                             {/* <td>{user.role[0].roleId}</td> */}
                             <td>{user.role[0].role}</td>
                             <td><button
-                            disabled = {this.props.currentUser.role[0].roleId != 1}
-                            onClick={() => {this.props.history.push(`/users/${user.userId}`)}}>Edit</button></td>
+                            disabled = {this.props.currentUser.role[0].roleId !== 1 && this.props.currentUser.role[0].roleId !==2}
+                            onClick={() => {this.props.history.push(`/users/${user.userId}`)}}>View</button></td>
                         </tr>
                     )
                 })
@@ -122,6 +122,7 @@ export class UserComponent extends React.Component<any, IUserState> {
 
     render(){
         //this.getAllUsers() || 'nouser'
+        console.log(this.props.location.pathname)
         return(
             <div>
                 <p>{this.state.allUsers.length > 0 && this.state.allUsers[1].userId}</p>

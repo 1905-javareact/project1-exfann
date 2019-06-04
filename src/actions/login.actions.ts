@@ -37,12 +37,12 @@ export const login = (username:string, password:string, history:any) => async(di
                 type:loginTypes.SUCCESSFUL_LOGIN
             })
             history.push('/users')
-            if(user.role[0].roleId == 1){
-                history.push('/users/admin')
-            }
-            else if(user.role[0].roleId == 2){
-                history.push('/users/finance')
-            }
+            // if(user.role[0].roleId == 1){
+            //     history.push('/users/admin')
+            // }
+            // else if(user.role[0].roleId == 2){
+            //     history.push('/users/finance')
+            // }
             
         } else {
             dispatch({
