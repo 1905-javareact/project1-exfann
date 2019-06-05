@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import RevLogo from '../../assets/rev-logo.png';
+// import RevLogo from '../../assets/background.jpg';
 
 export class NavComponent extends React.Component {
   render() {
@@ -26,7 +27,7 @@ export class NavComponent extends React.Component {
               <Link to="/users" className="unset-anchor nav-link">Users</Link>
             </li>
             <li className="nav-item active">
-              <Link to="/second" className="unset-anchor nav-link">Second</Link>
+              <Link to="/reimbursements/status/1" className="unset-anchor nav-link">Reimbursements</Link>
             </li>
             <li className="nav-item active">
               <Link to="/clicker" className="unset-anchor nav-link">Clicker</Link>

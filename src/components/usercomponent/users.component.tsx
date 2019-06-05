@@ -49,32 +49,7 @@ export class UserComponent extends React.Component<any, IUserState> {
                 })
             } else if( response.status === 200){
                 const Users = await response.data
-                // const Test = Users.map((user)=>user)
-                // console.log(Test)
-                //console.log(Object.keys(Users[0])
-                // const allUserKeys = Object.keys(Users[0]).map((user)=>{
-                //     return(
-                //         <thead>
-                //         <tr>
-                //             <th>{user}</th>
-                //         </tr>
-                //         </thead>
-                //     )
-                // })
-                // const allUserKeys = ()=>{
-                //     return(
-                //         <thead>
-                //             <tr>
-                                // <th>User ID</th>
-                                // <th>Username</th>
-                                // <th>First Name</th>
-                                // <th>Last Name</th>
-                                // <th>Email</th>
-                                // <th>Role</th>
-                //             </tr>
-                //         </thead>
-                //     )
-                // }
+
                 const allUsers = Users.map((user)=> {
                     //console.log(user.role[0].roleId)
                     return(
@@ -88,7 +63,7 @@ export class UserComponent extends React.Component<any, IUserState> {
                             {/* <td>{user.role[0].roleId}</td> */}
                             <td>{user.role[0].role}</td>
                             <td><button
-                            disabled = {this.props.currentUser.role[0].roleId !== 1 && this.props.currentUser.role[0].roleId !==2}
+                            disabled = {(this.props.currentUser.role[0].roleId !== 1 && this.props.currentUser.role[0].roleId !==2) && (this.props.currentUser.userId !== user.userId)}
                             onClick={() => {this.props.history.push(`/users/${user.userId}`)}}>View</button></td>
                         </tr>
                     )
