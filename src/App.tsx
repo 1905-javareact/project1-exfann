@@ -14,6 +14,7 @@ import { store } from './Store';
 import { HomeComponent } from './components/home.component.tsx/home.component';
 import userIdComponent from './components/usercomponent/user-id.component';
 import  ReimByStatusComponent  from './components/reimbursementcomponent/reimbursementstatus.component';
+import  ReimByAuthorComponent  from './components/reimbursementcomponent/reimbursementauthor.component';
 
 
 const App: React.FC = () => {
@@ -29,6 +30,7 @@ const App: React.FC = () => {
             <Route exact path='/users' component={UserComponent}/>
             <Route path = '/users/' component={userIdComponent}/>
             <Route path = '/reimbursements/status/' component={ReimByStatusComponent}/>
+            <Route path = '/reimbursements/author/userId' component={ReimByAuthorComponent}/>
           </Switch>
         </BrowserRouter>
     </div>
