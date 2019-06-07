@@ -102,6 +102,9 @@ export class ReimByStatusComponent extends React.Component<any, IReimState> {
         console.log(this.props.location.pathname)
         return(
             <div>
+                <select name="author" >
+
+                </select>
                 <select name="status" disabled = {this.props.currentUser.role[0].roleId !== 1 && this.props.currentUser.role[0].roleId !== 2}  onChange={this.updateStatus} value = {this.state.status} >
 	                <option value= {1} >Pending</option>
 	                <option value= {2} >Approved</option>
