@@ -95,6 +95,13 @@ export class ReimByStatusComponent extends React.Component<any, IReimState> {
         // this.getReimsByStatus()
     }
 
+    switchSort = (event) => {
+        if(event.target.value === 2){
+            this.props.history.push(`/reimbursements/author/userId`)
+        }
+
+    }
+
 
 
     render(){
@@ -102,8 +109,9 @@ export class ReimByStatusComponent extends React.Component<any, IReimState> {
         console.log(this.props.location.pathname)
         return(
             <div>
-                <select name="author" >
-
+                <select name="author" onChange={this.switchSort}>
+                    <option value = {1}>Status</option>
+                    <option value = {2}>Author</option>
                 </select>
                 <select name="status" disabled = {this.props.currentUser.role[0].roleId !== 1 && this.props.currentUser.role[0].roleId !== 2}  onChange={this.updateStatus} value = {this.state.status} >
 	                <option value= {1} >Pending</option>
