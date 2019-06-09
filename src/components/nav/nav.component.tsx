@@ -6,7 +6,7 @@ import RevLogo from '../../assets/rev-logo.png';
 export class NavComponent extends React.Component {
   render() {
     return (
-      <nav className="navbar navbar-toggleable-md navbar-expand-lg navbar-light bg-light display-front nav-pad">
+      <nav className="navbar navbar-toggleable-md navbar-expand-lg navbar-dark bg-dark display-front nav-pad">
         <div className="navbar-header c-pointer shift-left">
           <Link to="/home" className="unset-anchor">
             <img className="img-adjust-position rev-logo" src={RevLogo} alt="revature" />
@@ -30,10 +30,7 @@ export class NavComponent extends React.Component {
               <Link to="/reimbursements/status/1" className="unset-anchor nav-link">Reimbursements</Link>
             </li>
             <li className="nav-item active">
-              <Link to="/clicker" className="unset-anchor nav-link">Clicker</Link>
-            </li>
-            <li className="nav-item active">
-              <Link to="/spaceships" className="unset-anchor nav-link">Spaceships</Link>
+              <Link to="/reimbursements" className="unset-anchor nav-link">Submit</Link>
             </li>
           </ul>
         </div>

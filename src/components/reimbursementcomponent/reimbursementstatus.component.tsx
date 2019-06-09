@@ -11,6 +11,8 @@ interface IReimState{
     errorMessage: string
     currentUser: User
     status:number
+    res: number
+    path: string
     // reimId: number
     // author: number
     // dateSubmit: string
@@ -32,6 +34,8 @@ export class ReimByStatusComponent extends React.Component<any, IReimState> {
             errorMessage: '',
             currentUser: undefined,
             status: null,
+            res: undefined,
+            path: undefined
             // buttonClick: undefined
         }
     }
@@ -61,11 +65,28 @@ export class ReimByStatusComponent extends React.Component<any, IReimState> {
                             {/* <td>{user.role[0].roleId}</td> */}
                             <td>{reim.description}</td>
                             <td>{reim.resolver}</td>
-                            <td>{reim.status.status}</td>
+                            {/* <td>{reim.status.status}</td> */}
+                            <td>
+                                <select name="status" disabled = {(this.props.currentUser.role[0].roleId !== 1 && this.props.currentUser.role[0].roleId !==2) || reim.status.statusId != 1} onChange ={this.updateRes} value = {this.state.res}>
+	                                <option value= {1} >pending</option>
+	                                <option value= {2} >approved</option>
+	                                <option value= {3} >denied</option>
+	                            </select>
+                            </td>
                             <td>{reim.type.type}</td>
                             <td><button
                             disabled = {(this.props.currentUser.role[0].roleId !== 1 && this.props.currentUser.role[0].roleId !==2) && (this.props.currentUser.userId !== reim.author)}
-                            onClick={() => {this.props.history.push(`/reimbursements/${reim.reimbursementId}`)}}>View</button></td>
+                            onClick={() => {
+                                // this.props.history.push(`/reimbursements/${reim.reimbursementId}`)
+                                this.setState({
+                                    path: `/reimbursements/${reim.reimbursementId}`
+                                })
+                                }
+                            }>Select</button></td>
+                            <td><button
+                            disabled = {(this.props.currentUser.role[0].roleId !== 1 && this.props.currentUser.role[0].roleId !==2) && (this.props.currentUser.userId !== reim.author)}
+                            onClick={this.updateSubmit}>Submit</button></td>
+                            
                         </tr>
                     )
                     
@@ -96,17 +117,51 @@ export class ReimByStatusComponent extends React.Component<any, IReimState> {
     }
 
     switchSort = (event) => {
-        if(event.target.value === 2){
+        if(event.target.value == 2){
             this.props.history.push(`/reimbursements/author/userId`)
         }
 
     }
+    updateSubmit = (event)=>{
+        event.preventDefault()
+        let date = new Date().toLocaleDateString()
+        let resolve = this.props.currentUser.role[0].roleId
+        this.submit(date, resolve ,this.state.res)
+    }
+
+    submit = async (resolved: string, resolver:number, status:number) =>{
+        const creds = {
+            resolved: resolved,
+            resolver: resolver,
+            status: status
+        }
+
+        const response = await ersClient.patch(this.state.path, creds)
+        console.log(response)
+
+    }
+
+    updateRes = (event)=>{
+        
+
+        this.setState({
+            res: event.target.value
+        })
+
+    }
+
 
 
 
     render(){
         //this.getAllUsers() || 'nouser'
         console.log(this.props.location.pathname)
+        if(this.props.currentUser == undefined){
+            return(
+                <h1>Please Login</h1>
+            )
+        }
+        else{
         return(
             <div>
                 <select name="author" onChange={this.switchSort}>
@@ -140,6 +195,7 @@ export class ReimByStatusComponent extends React.Component<any, IReimState> {
                 </table>
             </div>
         )
+        }
     }
 }
 
