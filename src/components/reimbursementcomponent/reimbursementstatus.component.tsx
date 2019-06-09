@@ -161,6 +161,11 @@ export class ReimByStatusComponent extends React.Component<any, IReimState> {
                 <h1>Please Login</h1>
             )
         }
+        else if(this.props.currentUser.role[0].roleId != 1 && this.props.currentUser.role[0].roleId != 2) {
+            return(
+                <h1>Invalid Credentials</h1>
+            )
+        }
         else{
         return(
             <div>
